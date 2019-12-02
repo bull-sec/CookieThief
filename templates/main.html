@@ -45,20 +45,12 @@
         url: "/poll",
         type: "GET",
         success: function(data) {
-                var node = document.createElement("P");
-		node.setAttribute("id", "testList");
-		var textnode = document.createTextNode(data);
-		node.appendChild(textnode);
-		document.getElementById("testList").appendChild(node);
-		//var nodelist = document.getElementsByTagName("LI").length;
-		//var i = 10;
-		//while(i <  nodelist){
-		//	console.log(nodelist);
-		//	$('.testCase01').children().last().remove();
-		//}
-		//$('#testList li').last(1).remove();
+		var container = $('#testList').empty();
+		$.each(data, function(idx, elm) {
+			var n = $('<p>' + elm.join(" - ") + '</p>');
+			container.append(n);
+		});
         },
-        dataType: "text",
         complete: setTimeout(function() {poll()}, 5000),
         timeout: 2000
     })

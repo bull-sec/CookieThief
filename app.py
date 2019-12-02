@@ -19,10 +19,14 @@ def before_request():
     elif "AdminTings" in request.headers['Cookie']:
         pass
     else:
-        global_headers = str(request.headers['Cookie'])
+        cookie = str(request.headers['Cookie'])
+        method = str(request.method)
+        parameters = str(request.args)
+        full_data = request.data
+        print("Full Data: "+ full_data)
         conn = sqlite3.connect("requests.db")
         if global_headers != None:
-            sql = 'INSERT INTO requests (request_data) VALUES ("'+global_headers+'")'
+            sql = 'INSERT INTO requests (cookie, method, parameters) VALUES ("'+cookie+'","'+method+'","'+parameters+'")'
             c = conn.cursor()
             c.execute(sql)
             conn.commit()
@@ -54,8 +58,7 @@ def index():
 
 @app.route("/poll")
 def poll():
-    arr = []
-    sql = "SELECT request_data FROM requests ORDER BY id DESC LIMIT 10;"
+    sql = "SELECT cookie,method,parameters FROM requests ORDER BY id DESC LIMIT 10;"
     conn = sqlite3.connect("requests.db")
     c = conn.cursor()
     c.execute(sql)
