@@ -48,6 +48,8 @@
 		var container = $('#testList').empty();
 		$.each(data, function(idx, elm) {
 			var n = $('<p>' + elm.join(" - ") + '</p>');
+			var t = document.querySelector('p');
+			t.setAttribute('id', 'testList');
 			container.append(n);
 		});
         },

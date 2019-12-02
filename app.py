@@ -21,7 +21,8 @@ def before_request():
     else:
         cookie = str(request.headers['Cookie'])
         method = str(request.method)
-        parameters = str(request.args)
+        parameters = str(request.args.get('arg', default=None, type=None))
+        print(parameters)
         full_data = request.data
         print("Full Data: "+ full_data)
         conn = sqlite3.connect("requests.db")
@@ -47,6 +48,7 @@ def clearDB():
 
 @app.after_request
 def after_request(response):
+    response.set_cookie('Cookie','IgnoreMe')
     return response
 
 
