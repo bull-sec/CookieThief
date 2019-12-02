@@ -7,7 +7,7 @@
 			Cookie Thief v0.
 			<span class="vim-caret">1</span>
 			<blockquote class="blockquote blockquote-reverse">
-				  <p class="mb-0">All warfare is based on deception.</p>
+				  <code class="mb-0">All warfare is based on deception.</code>
 				    <footer class="blockquote-footer">Sun Tzu
 					        <cite title="Source Title">The Art of War</cite>
 						  </footer>
@@ -19,12 +19,24 @@
 	<div class="container">
 		<h2>Nothing to see here... (yet)</h2>
 		<hr>
-		{% for header in headers %}
-		    <p><i>{{ header }}</i></p>
-		{% endfor %}
-		<p>Stolen Cookie: 
+	<script>
+		$(document).ready(function(){
+			$("button").click(function(){
+				$('p').empty("#testList");
+			});
+		});
+	</script>
+	<form action="/clearDB">
+		<button type="submit" class="btn-danger">Clear DB</button>
+	</form>
+	<hr>
+	<button class="btn-danger">Clear Cookies</button>
+	<hr>
 
-		<ul> <li id="testList"></li></ul>
+
+		<div id="testCase01">
+			<p id="testList"></p>
+		</div>
 		<hr>
 
 	<script>
@@ -33,10 +45,17 @@
         url: "/poll",
         type: "GET",
         success: function(data) {
-                var node = document.createElement("LI");
+                var node = document.createElement("P");
+		node.setAttribute("id", "testList");
 		var textnode = document.createTextNode(data);
 		node.appendChild(textnode);
 		document.getElementById("testList").appendChild(node);
+		//var nodelist = document.getElementsByTagName("LI").length;
+		//var i = 10;
+		//while(i <  nodelist){
+		//	console.log(nodelist);
+		//	$('.testCase01').children().last().remove();
+		//}
 		//$('#testList li').last(1).remove();
         },
         dataType: "text",

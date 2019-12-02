@@ -2,6 +2,8 @@ from flask import request
 from flask import Flask
 from flask import render_template
 from flask import jsonify
+from flask import url_for
+from flask import redirect
 import sqlite3
 import time
 import calendar
@@ -14,6 +16,8 @@ global_headers = ""
 def before_request():
     if "IgnoreMe" in request.headers['Cookie']:
         pass
+    elif "AdminTings" in request.headers['Cookie']:
+        pass
     else:
         global_headers = str(request.headers['Cookie'])
         conn = sqlite3.connect("requests.db")
@@ -25,6 +29,16 @@ def before_request():
             conn.close()
         else: 
             pass
+
+
+@app.route("/clearDB")
+def clearDB():
+    sql = "DELETE FROM requests;"
+    conn = sqlite3.connect('requests.db')
+    c = conn.cursor()
+    c.execute(sql)
+    conn.commit()
+    return redirect(url_for('index'))
 
 
 @app.after_request
